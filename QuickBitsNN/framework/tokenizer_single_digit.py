@@ -15,17 +15,17 @@ HASHEX_VOCABULARY   = ['0','1','2','3','4','5','6','7','8','9','a','b','c','d','
 #--------------------------------------------------------------
 class Tokenizer:
     def __init__(self):
-        self.token2index = {START_TOKEN: 256, END_TOKEN:257}
-        self.index2token = {256: START_TOKEN, 257: END_TOKEN}
+        self.token2index = {START_TOKEN: 16, END_TOKEN: 17}
+        self.index2token = {16: START_TOKEN, 17: END_TOKEN}
         self.vocab_size = 0
         for first_letter in HASHEX_VOCABULARY:
-            for second_letter in HASHEX_VOCABULARY:
-                hashex_token = f'{first_letter}{second_letter}'
-                hashex_index = int(hashex_token,16)
-                if hashex_token not in self.token2index:
-                    self.token2index[hashex_token] = hashex_index
-                    self.index2token[hashex_index] = hashex_token
-                    self.vocab_size += 1
+            #for second_letter in HASHEX_VOCABULARY:
+            hashex_token = f'{first_letter}'
+            hashex_index = int(hashex_token,16)
+            if hashex_token not in self.token2index:
+                self.token2index[hashex_token] = hashex_index
+                self.index2token[hashex_index] = hashex_token
+                self.vocab_size += 1
 
 
 
@@ -45,7 +45,7 @@ class Tokenizer:
 
 
     def tokenize(self, sequence, start_token=False, end_token=False):
-        seq = [sequence[i:i + 2] for i in range(0, len(sequence), 2)]
+        seq = [sequence[i:i + 1] for i in range(0, len(sequence))]
         if start_token:
             tokenized_sequence = np.concatenate(
                 [np.array([self.token2index[START_TOKEN]]), np.array([self.token2index[token] for token in seq])])
