@@ -188,7 +188,7 @@ class TransformerDecoder(pl.LightningModule):
         try:
             print(f"[⚙️ ]  Importing Model From File ....")
             print(f"\t\"{model_path_name}\"")
-            model_instance.load_state_dict(torch.load(file_name_path_model_state_dict, map_location=self.device), strict=False)
+            model_instance.load_state_dict(torch.load(file_name_path_model_state_dict, map_location=self.device, weights_only=True), strict=False)
             print(f"[✔︎] ....  was Successfully Loaded! [✔︎]")
         except:
             print(f"[✘] ....  has Failed to Load. [✘]")
